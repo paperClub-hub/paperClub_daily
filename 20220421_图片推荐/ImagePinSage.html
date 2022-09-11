@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        测试
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid" id="app">
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"> 
+               图片召回测试-PinSage
+            </a>
+            <form class="form-inline my-2 my-lg-0">
+                <input v-model="serverAddress" class="form-control mr-sm-2" type="search" placeholder="server address"
+                       aria-label="Search">
+            </form>
+        </div>
+    </nav>
+    <br>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card border-primary">
+                <div class="card-body">
+                    <div class="card">
+                        <table >
+                            <tr>
+                                <td @click="getId(0)"> <img :src="querys[0].img" class="card-img-top" style="height: 200px;"></td>
+                                <td @click="getId(1)" > <img :src="querys[1].img" class="card-img-top" style="height: 200px;"> </td>
+                                <td @click="getId(2)" > <img :src="querys[2].img" class="card-img-top" style="height: 200px;"> </td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-size:1px"> {{querys[0].tags}} </span> </td>
+                                <td><span style="font-size:1px"> {{querys[1].tags}} </span> </td>
+                                <td><span style="font-size:1px"> {{querys[2].tags}} </span> </td>
+                            </tr>
+
+                            <tr>
+                                <td @click="getId(3)" > <img :src="querys[3].img" class="card-img-top" style="height: 200px;"> </td> 
+                                <td @click="getId(4)" > <img :src="querys[4].img" class="card-img-top" style="height: 200px;"> </td> 
+                                <td @click="getId(5)" > <img :src="querys[5].img" class="card-img-top" style="height: 200px;"> </td> 
+                            </tr>
+                            <tr>
+                                <td><span style="font-size:1px"> {{querys[3].tags}} </span> </td>
+                                <td><span style="font-size:1px"> {{querys[4].tags}} </span> </td>
+                                <td><span style="font-size:1px"> {{querys[5].tags}} </span> </td>
+                            </tr>
+
+                            <tr>
+                                <td @click="getId(6)"> <img :src="querys[6].img" class="card-img-top" style="height: 200px;"> </td> 
+                                <td @click="getId(7)"> <img :src="querys[7].img" class="card-img-top" style="height: 200px;"> </td> 
+                                <td  @click="getId(8)"> <img :src="querys[8].img" class="card-img-top" style="height: 200px;"> </td> 
+                            </tr>
+                            <tr>
+                                <td><span style="font-size:1px"> {{querys[6].tags}} </span> </td>
+                                <td><span style="font-size:1px"> {{querys[7].tags}} </span> </td>
+                                <td><span style="font-size:1px"> {{querys[8].tags}} </span> </td>
+                            </tr>
+
+                            <tr>
+                                <td @click="getId(9)"> <img :src="querys[9].img" class="card-img-top" style="height: 200px;"> </td> 
+                                <td @click="getId(10)"> <img :src="querys[10].img" class="card-img-top" style="height: 200px;"> </td> 
+                                <td  @click="getId(11)"> <img :src="querys[11].img" class="card-img-top" style="height: 200px;"> </td> 
+                            </tr>
+                            <tr>
+                                <td><span style="font-size:1px"> {{querys[9].tags}} </span> </td>
+                                <td><span style="font-size:1px"> {{querys[10].tags}} </span> </td>
+                                <td><span style="font-size:1px"> {{querys[11].tags}} </span> </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <button id="search-button" type="button" v-on:click="ImageRecall()" class="btn btn-primary"> 召回 </button>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header"> 参数 </div>
+                <div class="card-body">
+                    <pre>
+                        <code>
+                            {{payload()}}
+                        </code>
+                    </pre>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            <div style="
+                display: none;
+                justify-content: center;
+                height: 100vh;
+                align-items: center;
+                "
+                id="search-animation"
+            >
+                <img src="./src/run.gif">
+            </div>
+
+            <div style="width:100%; grid-template-columns: auto auto auto auto auto;display: grid;">
+                <div class="card" v-for="item in results">
+                    <img :src="item.img" class="card-img-top"
+                         style="max-height: 400px;">
+                    <div style="font-size:1px"> {{item.tags}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<!--  添加点击后效果 -->
+<style>
+    .addBG{
+        border:8px solid rgb(116, 6, 250)
+    }
+</style>
+<script>
+	
+    const urlParams = new URLSearchParams(window.location.search);
+    const port = urlParams.get('port') ?? 9909;
+    var app = new Vue({
+        el: '#app',
+        data: {
+            select_ids: [],
+            select_tags: [],
+            click_count: [],
+            querys: null,
+            results: [],
+            serverAddress: `http://192.168.0.17:${port}`
+        },
+		
+		 mounted: function () {
+            this.$nextTick(function () {
+                $.getJSON(this.serverAddress + "/sample", function (json) {
+                    app.querys = json
+                });
+            })
+        },
+	
+        methods: {
+            
+            payload: function () {
+                params = [{
+                            media_ids: this.select_ids,
+                            media_tags: this.select_tags,
+                         }]
+                return { data: params }
+            },
+            getId:function(id) {
+                var media_id = this.querys[id].meadia_id;
+                var tag_name = this.querys[id].tags;
+                if (event.currentTarget.className == ""){
+                    this.select_ids.push(media_id);
+                    this.select_tags.push(tag_name);
+                    event.currentTarget.className = "addBG" // 添加样式
+                }else{
+                    this.select_ids.splice(this.select_ids.indexOf(media_id),1)
+                    this.select_tags.splice(this.select_tags.indexOf(tag_name),1)
+                    event.currentTarget.className = "" // 添加样式
+                }
+                console.log(this.select_ids)
+            },
+
+            ImageRecall: function () {// 后台回传数据
+                document.getElementById("search-button").disabled = true;
+                document.getElementById("search-animation").style.display = 'flex';
+                // console.log("JSON.stringify(this.payload): ", JSON.stringify(this.payload()));
+
+                $.ajax({
+                    type: "POST",
+                    url: this.serverAddress + "/query",
+                    data: JSON.stringify(this.payload()),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                }).success(function (data, textStatus, jqXHR) {
+                    document.getElementById("search-animation").style.display = 'none';
+                    document.getElementById("search-button").disabled = false;
+                    app.results = data
+                }).fail(function () {
+                    console.error("服务错误")
+                });
+            }
+        }
+    })
+</script>
+</html>

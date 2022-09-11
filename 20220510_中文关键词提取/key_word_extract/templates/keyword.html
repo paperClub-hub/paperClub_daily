@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KeyWord</title>
+</head>
+<body>
+<div align="center">
+<br/><br/><br/>
+<h2>Key Phrase Extraction</h2>
+	<br/><br/>
+    {% if message %} {{message}} {% endif %}
+    <form method="POST">
+<<<<<<< HEAD
+        <input type="text" name="username" style="height:38px;width:800px;" placeholder="username">
+=======
+        <input type="text" name="username" style="height:38px;width:800px;" placeholder="请输入一段话">
+>>>>>>> 5be9eb02f960a8eeef716f2efcf189e665538b99
+        <input type="submit" value="extract">
+        <input type="reset" value="reset">
+    </form>
+	<table class='table table-bordered' align='center' width='95%'>
+	<br/><br/>
+	<tr>
+		<th  width="20%">关键词</th> <!-- 设置列宽，占总宽度20% -->
+		<th>输入文本</th>
+	</tr>
+	 <tr>
+		<td>{{results}}</td> 
+		<td>{{input_text}}</td>
+     </tr>
+	</table>
+</div>
+
+</body>
+</html>

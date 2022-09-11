@@ -1,0 +1,53 @@
+{
+ "embeddings": [
+  {
+   "metadataPath": "sbert\\samples.tsv",
+   "sprite": {
+    "imagePath": "sbert\\images.png",
+    "singleImageDim": [
+     224,
+     224
+    ]
+   },
+   "tensorName": "sbert",
+   "tensorPath": "sbert\\embeddings.bytes",
+   "tensorShape": [
+    18,
+    512
+   ]
+  },
+  {
+   "metadataPath": "space\\samples.tsv",
+   "sprite": {
+    "imagePath": "space\\images.png",
+    "singleImageDim": [
+     224,
+     224
+    ]
+   },
+   "tensorName": "space",
+   "tensorPath": "space\\embeddings.bytes",
+   "tensorShape": [
+    18,
+    512
+   ]
+  },
+  {
+   "metadataPath": "pretrain\\samples.tsv",
+   "sprite": {
+    "imagePath": "pretrain\\images.png",
+    "singleImageDim": [
+     224,
+     224
+    ]
+   },
+   "tensorName": "pretrain",
+   "tensorPath": "pretrain\\embeddings.bytes",
+   "tensorShape": [
+    18,
+    2000
+   ]
+  }
+ ],
+ "modelCheckpointPath": "feature_visual"
+}

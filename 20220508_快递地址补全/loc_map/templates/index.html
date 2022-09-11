@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>search</title>
+</head>
+<body bgcolor="DodgerBlue">
+	<div style="text-align:center;color:#F0F8FF"  >
+		<br/><br/><br/>
+		<h2>Address-Extractor</h2>
+		<br/><br/>
+		{% if message %} {{message}} {% endif %}
+		<form method="POST">
+			<input type="text" rows="4" cols="60"  placeholder="请输入地址 ..." name="username" style="height:38px;width:500px;">
+			<input type="submit" value="run">
+			<input type="reset" value="reset">
+		</form>
+		<br/><br/>
+		
+		<table class="table table-bordered" align="center" width="100%">
+		<tr>
+			<th>省/直辖市名称</th>
+			<th>市级名称</th>
+			<th>县级名称</th>
+			<th>其他信息</th>
+			<th>拼接结果</th>
+			<th>原始输入</th>
+		</tr>
+		{% if name %}
+		 
+			{% for result in results %}  {# 迭代 movies 变量 #}
+			<tr>
+                <td>{{ result.province }}</td>
+                <td>{{ result.city }}</td>
+                <td>{{ result.county }}</td>
+				<td>{{ result.detail }}</td>
+				<td>{{ result.full_location }}</td>
+				<td>{{ result.orig_location }}</td>
+                <br/>
+               </tr>
+			{% endfor %}  {# 使用 endfor 标签结束 for 语句 #}
+		  
+		{% endif %}
+		</table>
+	</div>
+
+	</body>
+</html>
