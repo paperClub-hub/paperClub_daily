@@ -188,6 +188,29 @@ def demo_uploadfil7():
 	print(resp.text)
 
 
+def demo_upload8():
+	taskapi = f"{BASE_URL}/upload7"
+
+	file_patha = "./demoapi.py"
+
+	params = {
+		"file_name": file_patha,
+		"create_id": "ff5aac5d_c935_4a86_b356_bfe05f0e924c",
+		"upload_names": ["pdf0.pdf", "pdf1.pdf"],
+		"docment_type": "pdf",
+		"dataset_type": "text",
+		"language": "cn"
+	}
+
+	resp = requests.post(url=taskapi,
+	                     data=json.dumps(params)
+	                     )
+
+
+	print(resp.status_code)
+	print(resp.text)
+
+
 
 if __name__ == '__main__':
 	print()
@@ -198,5 +221,6 @@ if __name__ == '__main__':
 	# demo_uploadfile3x()
 	# demo_uploadfile4()
 	# demo_uploadfile5()
-	demo_uploadfil6()
+	# demo_uploadfil6()
 	# demo_uploadfil7()
+	demo_upload8()

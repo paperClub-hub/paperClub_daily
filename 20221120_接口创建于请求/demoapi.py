@@ -161,6 +161,15 @@ async def uploadFile22(params: str = Form(...), a_file: UploadFile = File(...)):
 
 	return json.dumps({"state": True })
 
+# 传递字典
+@app.post("/upload7")
+async def custom_docments_datasets(params: dict):
+
+	print(type(params))
+
+	return {"num_params": len(params), "params": json.dumps(params)}
+
+
 
 if __name__ == '__main__':
 	ip = "127.0.0.1"
