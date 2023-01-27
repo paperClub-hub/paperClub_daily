@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html align='center' lang="en">
+<meta http-equiv="Content-Type"content="text/html;charset=gb2312">
+<h1> PaperClub Web报告模板 </h1>
+<body>
+    <h2> 文献查重Web报告模板 (<a href="http://infersite.com/#/home"> paperClub </a>)</h2>
+    <p> 查重平台 : PaperClub&nbsp;&nbsp;&nbsp;&nbsp;报告时间 : {{create_time}}  </p>
+    <p> 检测结果 : {{state}}&nbsp;&nbsp;重复比率：{{rate}} </p>
+    <h2>详细信息（demo）</h2>
+    <table border="1" width = "40%" cellspacing='0' cellpadding='0' align='center' bgcolor="#6495ed">
+    <tr>
+        <th>论文题目</th>
+        <th>论文作者</th>
+        <th>论文字数</th>
+        <th>重复字数</th>
+        <th>重复比率</th>
+    </tr>
+
+    {% for item in data %}
+    <tr align='center'>
+        <td>{{ item.title }}</td>
+        <td>{{ item.author }}</td>
+        <td>{{ item.total_num }}</td>
+        <td>{{ item.dup_num }}</td>
+        <td>{{ item.rate }}</td>
+    </tr>
+    {% endfor%}
+    </table>
+    <h2>图片显示</h2>
+    {% for item in data %}
+        <p> {{item.title}} 检测结果【 {{item.state}} 】, 查重比率【 {{ item.rate }} 】</p>
+        <a name="{{ item.image_path }}"> <img src="{{ item.image_path }}" width="640"></a>
+        <br>
+    {% endfor%}
+    </body>
+</html>
