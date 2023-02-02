@@ -1,0 +1,7 @@
+emoji==2.0.0
+datedelta==1.4
+grapheme==0.6.0
+# ruamel_yaml==0.15.35
+multipledispatch==0.5.0
+langid==1.1.6
+regex
