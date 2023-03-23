@@ -221,6 +221,14 @@ def demo_post_imgbyte():
 	print(resp.status_code)
 	print(resp.content)
 	
+	import io
+	from PIL import Image
+	
+	bytes_stream = io.BytesIO(resp.content)
+	capture_img = Image.open(bytes_stream)
+	capture_img.show()
+	
+	
 
 if __name__ == '__main__':
 	print()
