@@ -170,6 +170,16 @@ async def custom_docments_datasets(params: dict):
 	return {"num_params": len(params), "params": json.dumps(params)}
 
 
+# post 图片字节流
+@app.post("/post_imgbyte")
+def demo_load_local_img(file: str = File(...)):
+	# 推送字节流
+	
+	print("file: ", file)
+	dat = open(file, 'rb').read()
+	return StreamingResponse(io.BytesIO(dat), media_type="image/png")
+
+
 
 if __name__ == '__main__':
 	ip = "127.0.0.1"

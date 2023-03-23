@@ -16,12 +16,6 @@ from urllib import parse
 BASE_URL = "http://127.0.0.1:8000"
 
 
-
-
-
-
-
-
 def demo_login():
 	taskapi = f"{BASE_URL}/login"
 
@@ -211,6 +205,22 @@ def demo_upload8():
 	print(resp.text)
 
 
+
+def demo_post_imgbyte():
+	taskapi = f"{BASE_URL}/post_imgbyte"
+
+	file_patha = r"D:\linux_preject\project\meta_ago\app\resource\images\obj_min\p004358.jpg"
+	
+	params = {"file": file_patha}
+	
+	resp = requests.post(url=taskapi,
+	                     data=params
+	                     )
+
+	
+	print(resp.status_code)
+	print(resp.content)
+	
 
 if __name__ == '__main__':
 	print()
