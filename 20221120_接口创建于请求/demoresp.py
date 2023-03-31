@@ -227,8 +227,23 @@ def demo_post_imgbyte():
 	bytes_stream = io.BytesIO(resp.content)
 	capture_img = Image.open(bytes_stream)
 	capture_img.show()
-	
-	
+
+
+def demo_post_imgbyte():
+	taskapi = f"{BASE_URL}/post_base64img"
+
+	file_patha = r"D:\linux_preject\project\meta_ago\app\resource\images\obj_min\p004358.jpg"
+
+	params = {"file": file_patha}
+
+	resp = requests.post(url=taskapi,
+	                     data=params
+	                     )
+	# 注意 前段 显示时需要 "data:image/png;base64, " + resp.content 
+	print(resp.status_code)
+	print(resp.content)
+
+
 
 if __name__ == '__main__':
 	print()

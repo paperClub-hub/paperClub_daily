@@ -14,6 +14,7 @@ from fastapi import FastAPI, Body, Form, UploadFile, File, Request
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import StreamingResponse, Response,FileResponse
 
+import base64
 
 app = FastAPI()
 origins = ["*",]
@@ -178,6 +179,17 @@ def demo_load_local_img(file: str = File(...)):
 	print("file: ", file)
 	dat = open(file, 'rb').read()
 	return StreamingResponse(io.BytesIO(dat), media_type="image/png")
+
+
+# post 图片字节流(base64)
+@app.post("/post_base64img")
+def demo_load_local_img(file: str = File(...)):
+	# 推送字节流
+
+	dat = open(file, 'rb').read()
+	base64_encoded_string = base64.b64encode(dat) # bytes转化为string
+
+	return Response(base64_encoded_string, media_type="image/png")
 
 
 
