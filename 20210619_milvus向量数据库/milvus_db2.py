@@ -161,11 +161,12 @@ def milvus_search(query_emb: List[List], tok_k:int=3000):
 
 	result = COLLECTION.search(query_emb, "embeddings", search_params, limit=tok_k, output_fields=['img_id'])
 
+	del query_emb
 	if result:
 		hit_ids, hit_dist = [], []
 		for hit in result:
-			hit_ids.extend([h.id for h in hit])
-			hit_dist.extend([h.distance for h in hit])
+			hit_ids.append([h.id for h in hit])
+			hit_dist.append([h.distance for h in hit])
 		return hit_ids, hit_dist
 
 	else:
@@ -200,18 +201,18 @@ def milvus_search_with_ids(query_emb, photo_ids:List[int]):
 
 
 
-def get_entity_by_id(image_ids:List[int], return_index:bool=False):
+def get_entity_by_id(milvus_ids:List[int], return_index:bool=False):
 	"""
 	根据id获取向量: 过滤不在milvus中的id
 	Args:
-		image_ids: milvus id
-		return_index: True: 返回查询milvus对应image_ids索引，False返回milvus查询 id
+		milvus_ids: milvus id
+		return_index: True: 返回查询milvus对应milvus_ids索引，False返回milvus查询 id
 
 	Returns:
 
 	"""
 
-	expr = f'img_id in {image_ids}'
+	expr = f'img_id in {milvus_ids}'
 	res = COLLECTION.query(
 		expr=expr,
 		output_fields=["img_id", "embeddings"],
@@ -228,7 +229,7 @@ def get_entity_by_id(image_ids:List[int], return_index:bool=False):
 				embeddings.append(emb)
 				# 返回id对应索引
 				if return_index:
-					ids.append(image_ids.index(id))
+					ids.append(milvus_ids.index(id))
 				else:
 					ids.append(id)
 				del emb
@@ -240,25 +241,27 @@ def get_entity_by_id(image_ids:List[int], return_index:bool=False):
 
 
 
-def milvus_delete(image_ids: List[int]):
+def milvus_delete(milvus_ids: List[int]):
 	"""
 	milvus删除向量
 	Args:
-		image_ids:
+		milvus_ids:
 
 	Returns:
 
 	"""
 
-	if len(image_ids):
-		expr = f'img_id in {image_ids}'
+	if len(milvus_ids):
+		expr = f'img_id in {milvus_ids}'
 		COLLECTION.delete(expr)
 
 
 
 COLLECTION = None
 if COLLECTION is None:
-	COLLECTION = load_milvus_collection(COLLECTION_NAME, MILVUS_HOST, MILVUS_PORT)
+	COLLECTION = load_milvus_collection(collection_name=COLLECTION_NAME,
+	                                    host=MILVUS_HOST,
+	                                    port=MILVUS_PORT)
 
 
 if __name__ == '__main__':
@@ -288,20 +291,19 @@ if __name__ == '__main__':
 	# # 相似特征查询
 	# start = time.time()
 	# query_emb = [img_embs[0]]
-	# hits, scores = milvus_search(query_emb, tok_k=10)
+	# hit_ids, hit_dist = milvus_search(query_emb, tok_k=10)
 	# print("query_emb: ", query_emb)
-	# print("hits: ", hits)
+	# print("hit_ids: ", hit_ids)
 	# print("相似特征查询消耗：", time.time() - start)
 
 	# # 获取id对应向量
 	# start = time.time()
 	# for _ in range(10):
 	# 	# start = time.time()
-	# 	query_ids = [9999999999999900, 9, 0]
+	# 	query_ids = [99999999999, 1, 0]
 	# 	query_ids = list(range(50000))
-	# 	ids, embs = get_entity_by_id(query_ids, return_index=False)
-	# 	# print(ids)
-	# 	# print(embs)
+	# 	ids_in_milvus, embeddings = get_entity_by_id(query_ids, return_index=False)
+	# 	print("embeddings: ", len(embeddings), ids_in_milvus)
 	# 	# print("获取id对应向量消耗：", time.time() - start )
 	#
 	# print("获取id对应向量消耗：", (time.time() - start)/10)
