@@ -229,19 +229,29 @@ def demo_post_imgbyte():
 	capture_img.show()
 
 
-def demo_post_imgbyte():
-	taskapi = f"{BASE_URL}/post_base64img"
+def demo_post_list():
+	""" 传递数组 """
+	url = F"{BASE_URL}/post_list"
 
-	file_patha = r"D:\linux_preject\project\meta_ago\app\resource\images\obj_min\p004358.jpg"
+	data = {'file': [1234]}
+	res = requests.post(url, data=json.dumps(data))
+	print(res, res.json())
 
-	params = {"file": file_patha}
+	data = {'file': 100 }
+	res = requests.post(url, data=json.dumps(data))
+	print(res, res.json())
 
-	resp = requests.post(url=taskapi,
-	                     data=params
-	                     )
-	# 注意 前段 显示时需要 "data:image/png;base64, " + resp.content 
-	print(resp.status_code)
-	print(resp.content)
+	data = {'file': '123'}
+	res = requests.post(url, data=json.dumps(data))
+	print(res, res.json())
+
+
+def demo_get_query():
+	url = f"{BASE_URL}/query_items"
+
+	data = {'filename': '你好', "fileid": 111, 'inputs': [1,2,3,4]}
+	res = requests.get(url, params=data)
+	print(res, res.json())
 
 
 
@@ -256,4 +266,6 @@ if __name__ == '__main__':
 	# demo_uploadfile5()
 	# demo_uploadfil6()
 	# demo_uploadfil7()
-	demo_upload8()
+	# demo_upload8()
+	# demo_post_list()
+	demo_get_query()
