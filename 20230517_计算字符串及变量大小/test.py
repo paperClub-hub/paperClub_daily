@@ -46,7 +46,8 @@ def convert_size(inputs):
 	print("大小: ", inputs_bytes, " ===>> ",  formatter(inputs_bytes))
 
 
+if __name__ == '__main__':
 
-inputs = "&&a1asdasfvsasd"
+	inputs = "paperclub, 计算变量字节大小&&a1asdasfvsasd"
 
-print(convert_size(inputs))
+	print(convert_size(inputs))
