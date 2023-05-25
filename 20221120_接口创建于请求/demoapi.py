@@ -206,6 +206,16 @@ async def read_items(filename: str = Query(...), fileid: int = Query(...), input
 	return query_items
 
 
+@app.post("/text_image_hits")
+async def post_text_extract(text: str = Query(title="文章内容", default="", alias="text"),
+                            imgurl: str = Query(title="图片网址", default="", alias="imgurl")):
+	""""""
+
+	print("text: ", text)
+	print("imgurl: ", imgurl)
+
+	return {"api": [text, imgurl]}
+
 
 
 if __name__ == '__main__':

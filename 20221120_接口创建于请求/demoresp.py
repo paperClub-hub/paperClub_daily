@@ -253,6 +253,14 @@ def demo_get_query():
 	res = requests.get(url, params=data)
 	print(res, res.json())
 
+def demo_post_query():
+	url = f"{BASE_URL}/text_image_hits"
+	text = "450㎡简约风别墅设计 这样的设计才叫格调"
+	imgurl = "https://img0.baidu.com/it/u=3405212848,2275342701&fm=253&fmt=auto&app=138&f=JPEG?w=1266&h=500"
+
+	res = requests.post(url, params={"text": text, "imgurl": imgurl})
+
+	print(res.json())
 
 
 if __name__ == '__main__':
