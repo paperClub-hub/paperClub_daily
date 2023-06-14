@@ -246,6 +246,16 @@ def demo_post_list():
 	print(res, res.json())
 
 
+def demo_post_list2():
+	""" Body 传递数组 """
+
+	url = F"{BASE_URL}/post_list2"
+	data = {'text': ['房间干净明亮', '非常不错']}
+	res = requests.post(url, data=json.dumps(data))
+	print(res, res.json())
+
+
+
 def demo_get_query():
 	url = f"{BASE_URL}/query_items"
 
@@ -260,6 +270,14 @@ def demo_post_query():
 
 	res = requests.post(url, params={"text": text, "imgurl": imgurl})
 
+	print(res.json())
+
+
+def demo_post_params():
+	query = "客厅"
+	url = f"{BASE_URL}/vector/"
+
+	resp = requests.post(url, params={"query": query})
 	print(res.json())
 
 

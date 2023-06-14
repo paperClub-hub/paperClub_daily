@@ -198,6 +198,17 @@ def demo_post_list(file: Item):
 
 	return True
 
+
+@app.post("/post_list2/")
+def demo_post_list(text: List[str]=Body(..., embed=True)):
+	# Body 传递数组
+	print("text   ---> ", text)
+	post_list = text
+	print(type(post_list), post_list)
+
+	return True
+
+
 from fastapi import Query
 
 @app.get("/query_items/")
@@ -215,6 +226,12 @@ async def post_text_extract(text: str = Query(title="文章内容", default="", 
 	print("imgurl: ", imgurl)
 
 	return {"api": [text, imgurl]}
+
+
+@app.post("/vector/")
+async def get_desc_emb(query: str):
+	""""""
+	return len(query)
 
 
 
