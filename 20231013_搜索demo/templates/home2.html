@@ -1,0 +1,150 @@
+<html>
+<head>
+    <title> 筑客ai线上 </title>
+    <script src="{{ url_for('static', path='/js/jquery.min.js') }}"></script>
+    <link href="{{ url_for('static', path='/css/bootstrap.min.css') }}" rel="stylesheet" crossorigin="anonymous">
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+</head>
+<body>
+<div>
+    <div class="mt-8">
+        <div class="row" style="margin-top: 10px">
+            <h4> 筑客ai线上数据（测试） </h4>
+            <div>
+                <a href="/"><span class="badge bg-primary">HOME</span></a>
+                <label for="view_swiper" class="radio-inline" style="margin: 10px">
+                    <input type="checkbox" name="desc_checked" id="view_swiper" value="checkbox"> 隐藏文字
+                </label>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+
+<div class="container-fluid">
+    <div class="row g-1 gs-2">
+        {# 搜索框 #}
+        <div class="col-24">
+            <div class="row">
+                <form action="/" method="get">
+                    <div class="col">
+                        <label for="search"></label>
+                        <input type="text"
+                               style="width: 860px; height: 40px; border-radius:5px;border-width: thin; border-color: #0d6efd"
+                               name="text" id="search" autofocus
+                               value="{{ word }}">
+                        <input type="submit" value="搜索"
+                               style="margin-left: 12px; height: 40px; border-radius:5px; background-color: #0d6efd!important; color: #FFFFFF; border-color: #0d6efd ">
+
+                </form>
+            </div>
+
+            <!--ctr排序 -->
+            <div class="col">
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-5">
+                        <hr>
+                    </div>
+
+                    <div class="col"> 搜索结果</div>
+                    <div class="col-5">
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="container" style="max-width: 1860px">
+                    <div class="row align-items-start", style="--bs-gutter-x:0.5rem">
+                        {% for score, mid, pid, url, title, author, category, view_num, collect_num, publish_time in
+                        candidate_rank %}
+                        <div class="mb-12" style="width: 20%;">
+                            <div class="my_class">
+                                <a href="{{ detail_api_prefix }}?mid={{ mid }}&url={{ url }}">
+                                    <img src="{{ url }}"
+                                         class="candidate img-fluid rounded mx-auto d-block"
+                                         style="width: 400px;margin-bottom: 2px"
+                                         referrerPolicy="no-referrer"
+                                         alt="{{ url }}"/>
+                                </a>
+                            </div>
+                            <div class="desc-hide">
+                                <span>&#127540;{{ score }};&#128070;{{ view_num }};&#11088;{{ collect_num }};{{ publish_time }};</span>
+                                <span>{{ title }}; </span>
+                                </br>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+</body>
+
+<script>
+    $(function () {
+        $('#view_swiper').click(function () {
+            if ($(this).is(':checked')) {
+                $('.desc-hide').hide();
+            } else {
+                $('.desc-hide').show();
+            }
+        });
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var radioButton = document.getElementsByName("sortKey");
+        var storedValue = localStorage.getItem("sortKey");
+        if (storedValue) {
+            for (var i = 0; i < radioButton.length; i++) {
+                if (radioButton[i].value === storedValue) {
+                    radioButton[i].checked = true;
+                    break;
+                }
+            }
+        }
+
+        for (var i = 0; i < radioButton.length; i++) {
+            radioButton[i].addEventListener("change", function (event) {
+                localStorage.setItem("sortKey", event.target.value);
+            });
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var radioButton = document.getElementsByName("is_merge");
+        var storedValue = localStorage.getItem("is_merge");
+        if (storedValue) {
+            for (var i = 0; i < radioButton.length; i++) {
+                if (radioButton[i].value === storedValue) {
+                    radioButton[i].checked = true;
+                    break;
+                }
+            }
+        }
+        for (var i = 0; i < radioButton.length; i++) {
+            radioButton[i].addEventListener("change", function (event) {
+                localStorage.setItem("is_merge", event.target.value);
+            });
+        }
+    });
+
+</script>
+</html>
+
+<style>
+    .my_class:hover {
+        box-shadow: 0 5px 0 #5570f6;
+    }
+
+    .desc-hide {
+        font-size: 15px;
+        /*color: #0668ef;*/
+        /*display: block*/
+    }
+
+</style>

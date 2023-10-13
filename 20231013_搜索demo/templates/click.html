@@ -1,0 +1,68 @@
+<html>
+<head>
+    <title> 筑客 AI </title>
+    <script src="{{ url_for('static', path='/js/jquery.min.js') }}"></script>
+    <link href="{{ url_for('static', path='/css/bootstrap.min.css') }}" rel="stylesheet" crossorigin="anonymous">
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+</head>
+<body>
+<div>
+    <div class="mt-8">
+        <div class="row">
+            <h6> 图片详情 </h6>
+        </div>
+    </div>
+    <br>
+</div>
+
+<div class="container-fluid">
+    <div class="row g-1 gs-2">
+        <div class="col-12">
+            <div class="row">
+                <div style="text-align: center">
+                    <img src="{{ click_url }}" style="max-width: 1200px;">
+                </div>
+
+            </div>
+
+            <div class="row" style="margin-top: 20px; font-size: 20px">
+                <div class="col-5">
+                    <hr>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+
+
+    function handleRadioClick(radio) {
+        if (radio.checked) {
+            var value = radio.value;
+            // 发送 AJAX 请求
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "{{ evaluate_api }}?selectMid={{click_img}}&evaluateKey=" + value, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // 处理请求成功后的逻辑
+                    var response = xhr.responseText;
+                    console.log("response: ", response);
+                }
+            };
+            xhr.send();
+        }
+    }
+
+</script>
+
+</html>
+
+<style>
+    .sim-img:hover {
+        transform: scale(0.95);
+        box-shadow: 0 5px 1.5px #52d74b;
+    }
+</style>
