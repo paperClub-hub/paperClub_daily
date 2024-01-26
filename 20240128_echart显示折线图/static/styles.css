@@ -1,0 +1,14 @@
+body {
+    text-align: center;
+}
+img {
+    max-width: 300px;
+}
+
+img.selected {
+    max-width: 200px;
+}
+
+container{
+    width: 820px;
+}
