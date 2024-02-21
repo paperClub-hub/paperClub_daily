@@ -37,11 +37,66 @@ def dfs(start, end, path=None):
 	return paths
 
 
+def dfs_paths(start, end, path=None):
+	""" 深度优先搜索（DFS）
+	使用DFS生成从start到end的所有路径
+	:param start: 起点
+	:param end: 终点
+	:param path: 当前路径，默认为None
+	:return: 所有路径的列表
+	"""
+	# 如果路径为None，则初始化为只包含起点的列表
+	if path is None:
+		path = [start]
+	# 如果当前节点是终点，则将路径添加到结果中
+	if start == end:
+		return [path]
+	# 如果当前节点没有邻居或者已经是死路，则返回空列表
+	if start not in graph:
+		return []
+	# 递归遍历当前节点的所有邻居
+	paths = []
+	for node in graph[start]:
+		# 避免重复访问已经在路径中的节点
+		if node not in path:
+			# 递归调用dfs_paths，并将当前节点添加到路径中
+			new_paths = dfs_paths(node, end, path + [node])
+			# 将找到的新路径添加到结果中
+			for new_path in new_paths:
+				paths.append(new_path)
+	return paths
+
+
+def bfs_paths(start, end):
+	""" 广度优先搜索（BFS） """
+	# 记录所有路径的集合
+	paths = set()
+	# 记录当前路径
+	current_path = [start]
+	# 使用队列来进行BFS
+	queue = deque([(start, [start])])
+
+	while queue:
+		node, path = queue.popleft()
+		# 如果到达终点，将当前路径添加到结果中
+		if node == end:
+			paths.add(tuple(path))
+		else:
+			# 遍历当前节点的所有邻居
+			for neighbor in graph[node]:
+				# 如果邻居节点未被访问过，则将其加入队列并更新当前路径
+				if neighbor not in path:
+					queue.append((neighbor, path + [neighbor]))
+
+	return list(paths)
+
 # 测试函数
 start_node = 'A'
 end_node = 'F'
 
 all_paths = dfs(start_node, end_node)
+all_paths = dfs_paths(start_node, end_node)
+all_paths = bfs_paths(start_node, end_node)
 for path in all_paths:
 	print(path)
 
