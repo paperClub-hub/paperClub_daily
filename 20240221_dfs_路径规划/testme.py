@@ -71,10 +71,9 @@ def dfs_paths(start, end, path=None):
 
 def bfs_paths(start, end):
 	""" 广度优先搜索（BFS）: 横向搜索算法，算法从图的某一点开始，访问其他未被访问的邻近节点，然后每个邻近节点做同样的操作，直到所有的顶节点都被访问过为止。
-	BFS并不使用经验法则，而是将展开节点的子节点加进一个先进先出的队列中。
-	BFS也可以用于，如判断从A点到B点是否有可达路径，以及从A点出发到B点的最短路径等。
-
-	 """
+		BFS并不使用经验法则，而是将展开节点的子节点加进一个先进先出的队列中。
+		BFS也可以用于，如判断从A点到B点是否有可达路径，以及从A点出发到B点的最短路径等。
+	"""
 	# 记录所有路径的集合
 	paths = set()
 	# 记录当前路径
@@ -100,8 +99,8 @@ def bfs_paths(start, end):
 start_node = 'A'
 end_node = 'F'
 
-all_paths = dfs(start_node, end_node)
-all_paths = dfs_paths(start_node, end_node)
+# all_paths = dfs(start_node, end_node)
+# all_paths = dfs_paths(start_node, end_node)
 all_paths = bfs_paths(start_node, end_node)
 for path in all_paths:
 	print(path)

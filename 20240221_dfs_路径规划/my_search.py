@@ -180,6 +180,7 @@ def beam_search(nodes, topk=1):
 			for j in paths_.keys():
 				nows[j + i] = paths_[j] + math.log(nodes[l][i])
 				cur_cal += 1
+
 		calculations.append(cur_cal)
 		# 选择topk条路径
 		indices = np.argpartition(list(nows.values()), -topk)[-topk:]
