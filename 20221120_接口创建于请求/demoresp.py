@@ -281,6 +281,16 @@ def demo_post_params():
 	print(res.json())
 
 
+# post字符串或列表list
+def demo_post_list_str():
+	text = "客厅"
+	text = ['asc', '搜索']
+	url = f"{BASE_URL}/list_str/"
+	resp = requests.post(url, data=json.dumps({'text': text}))
+	print(resp.json())
+
+
+
 if __name__ == '__main__':
 	print()
 	# demo_login()
@@ -294,4 +304,5 @@ if __name__ == '__main__':
 	# demo_uploadfil7()
 	# demo_upload8()
 	# demo_post_list()
-	demo_get_query()
+	# demo_get_query()
+	demo_post_list_str()

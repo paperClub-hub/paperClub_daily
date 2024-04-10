@@ -11,7 +11,7 @@
 import json
 from typing import Union, List
 from pydantic import BaseModel
-from fastapi import FastAPI, Body, Form, UploadFile, File, Request
+from fastapi import FastAPI, Query, Body, Form, UploadFile, File, Request
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import StreamingResponse, Response, FileResponse
 
@@ -209,7 +209,7 @@ def demo_post_list(text: List[str]=Body(..., embed=True)):
 	return True
 
 
-from fastapi import Query
+
 
 @app.get("/query_items/")
 async def read_items(filename: str = Query(...), fileid: int = Query(...), inputs: list=Query([])):
@@ -233,6 +233,17 @@ async def get_desc_emb(query: str):
 	""""""
 	return len(query)
 
+
+class Item2(BaseModel):
+	text: Union[str, List]
+
+# 接受str或list
+@app.post("/list_str/")
+async def demo_list_str(params: Item2):
+	text = params.text
+	print("params: ", params, "text: ", type(text))
+
+	return text
 
 
 if __name__ == '__main__':
