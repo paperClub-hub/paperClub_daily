@@ -222,3 +222,61 @@ doc_count = es.count(index=index_name2)
 
 print(f"索引 {index_name2} 写入：{doc_count}")
 search(index_name2)
+
+"""
+一些常用的query_body:
+query_body = {
+					"query": {  # 多个字符串(分词+全文检索）
+						"match": {
+							'content': {
+								"query": query,
+								"fuzziness": "AUTO", # 模糊搜索
+							}
+						}
+					},
+					"size": ES_BM25_SEARCH_SIZE
+				}
+
+				query_body = {
+					"query": { # 短语匹配
+						"match_phrase": {
+							"content": "屈红森"
+						}
+					}
+				}
+				query_body = {  # 不同字段权重 -- 并集
+					'query':
+						{'bool':
+							{
+								'should': [
+									{
+										'match_phrase': {
+											'content': {
+												'query': '屈红森',
+												'boost': 3
+											}
+										}
+									},
+									{
+										'match_phrase': {
+											'content':
+												{'query': '工作汇报',
+												 'boost': 1}
+										}
+									}
+								]
+							}
+						}
+				}
+
+			query_body = {
+				"query": {
+					"query_string": {  # 字符串查询 & 逻辑查询
+						"default_field": "content",
+						"query": "屈红森 OR (算法 AND 工作成果)"
+					}
+				}
+
+			}
+
+"""
