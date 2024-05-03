@@ -212,6 +212,20 @@ def search(index_name):
 	res3 = es.search(index=index_name, body=body)
 	print(f"精准查询: {res3}")
 
+def get_es_analyzer():
+	"""获取es分词结果"""
+	#
+	analyzers = ["standard", "simple", "whitespace", "stop", "keyword", "pattern", "fingerprint"]
+	analyzers = ['ik_smart'] # 中文分词器
+	text = "和珅 工 作汇报 及 年度总结"
+	# text = ['和珅', '工作汇报']
+	analyzers = ["whitespace", 'ik_smart']
+	for analyzer in analyzers:
+		res = self.client.indices.analyze(body={"analyzer": analyzer, "text": text})
+		print(analyzer, res)
+		print(' ---------------------------------- ')
+
+
 
 
 index_name1 = "testme"
