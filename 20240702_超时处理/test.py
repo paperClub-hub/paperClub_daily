@@ -46,17 +46,8 @@ def run_task1(hh):
 # --------------------- 基于Queue的方法
 def sub_function(result_queue, duration):
     """模拟耗时任务，duration秒后完成"""
-    time.sleep(duration)  # 模拟计算或IO等待
+    time.sleep(duration)  # 模拟计算或IO等待，可以不用
     res = "sub_function运行结果为xxx" # 执行某个方法，结果加入队列
-
-    # """例如如下方法"""
-    # from langchain_community.document_loaders import AsyncHtmlLoader
-    # urls = ['https://baike.baidu.com/item/韦小宝/1448539',
-    #         'https://zh.wikipedia.org/zh-sg/韋小寶',
-    #         'https://www.sohu.com/a/215419865_648199']
-    # loader = AsyncHtmlLoader(urls)
-    # res = loader.load()
-
     result_queue.put(('Done', res))
 
 
@@ -111,6 +102,7 @@ def run_with_timeout(func, timeout, *args):
 
 t1 = time.time()
 timeout = 10
+urls = ['https://baike.baidu.com/item/韦小宝/1448539', 'https://zh.wikipedia.org/zh-sg/韋小寶', 'https://www.sohu.com/a/215419865_648199']
 docs = run_with_timeout(get_wrapper, timeout, urls)
 t2 = time.time()
 print("耗时：", t2 - t1)
